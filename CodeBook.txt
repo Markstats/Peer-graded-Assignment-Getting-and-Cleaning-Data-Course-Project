@@ -1,0 +1,52 @@
+A script called run.analysis.R handles the data getting and cleaning. A first step is made to prepare the data for R. I choose to call this step data preperation.
+After that step, each 5 step from the task description is made and can be seen below. 
+
+---------------------------------------------------------------------------------
+Data preperation
+-----------------------------------------------------------------------------------
+1. Download the data set from "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip" and unzip it. 
+
+2. Load all the data needed for the task, these are.
+		
+* features.txt
+* activity_labels.txt
+* test/X.test.txt
+* test/y.test.txt		
+* test/subject_test.txt
+* train/X.test.txt
+* train/y.test.txt		
+* train/subject_test.txt	
+
+For both the test and train data the y variable column is named "Activity" and the x column is named after the names in features.txt. The subjects column is named 
+"subject". For both test and train data the y, subject and x data is merged with cbind() function. 
+---------------------------------------------------
+Task objectives
+-----------------------------------------------------
+
+1.Merges the training and the test sets to create one data set. The preperared train and test data is merged with rbind() function. The result is a data frame with 10299 rows and 563 columns.
+
+2. Extracts only the measurements on the mean and standard deviation for each measurement.  This was made with help of 
+the grepl() function, finding every varible name containing either std or mean. 
+
+3. Uses descriptive activity names to name the activities in the data set This was made with with the factor() function and renaming every label to the right
+one from the activity_labels.txt.
+
+4. Appropriately labels the data set with descriptive variable names. This was made with function gsub(). 
+
+* Acc -> "Accelerometer"
+* BodyBody -> "Body"
+* Mag -> "Magnitude"
+* Gyro -> "Gyroscope"
+* All names started with t, t -> "time"
+* All names started with f, f -> "FastFourierTransform"
+* () -> ""
+* - -> ""
+* Std -> "Std" 
+* mean -> "Mean"
+* freq -> "Frequency"
+
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+Takes the mean for each variable for each subject and each activity. This with help of summarize_all function from dplyr package. The final data set
+is writen into a text file "complete.txt".
+
+
